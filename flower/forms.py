@@ -3,10 +3,10 @@ from django.forms import ModelForm
 from .models import Flower
 
 class FlowerForm(ModelForm):
-    # title = forms.CharField(label='Title', widget=forms.TextInput(attrs={'class': 'form-control'})) 
-    class Meta:
+     # title = forms.CharField(label='Title',widget= forms.TextInput(attrs={'class': 'form-control '}))
+     class Meta:
         model = Flower
-        # fields = ['title']
+        #fields = ['title']
         fields = '__all__'
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),

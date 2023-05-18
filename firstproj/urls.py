@@ -14,32 +14,30 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
-from myapp.views import hello, hello1, hello2, student
-from students.views import listone, listall, post, post1, postform, delete, edit
+from django.urls import path,include
+from newsadm import views as nviews
+from myapp.views import hello, hello1, hello2, students
+from students.views import listone, listall, post, postform, delete, edit
+#                                       別名
 from CookieSessionApp import views as csviews
 from flower import views as fviews
-from news import views as nviews
-from boardapp import views as bviews
-
+from boardapp import views as bviews 
 from django.conf import settings
 from django.conf.urls.static import static
 
-
-
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',hello),
+    path('', hello),
+    path('hello', hello),
     path('hello1/<str:username>', hello1),
     path('hello2/<str:username>', hello2),
-    path('std/', student),
+    path('stds/', students),
     path('listone/', listone),
     path('listall/', listall),
     path('post/', post),
-    path('post1/', post1),
     path('postform/', postform),
     path('delete/<str:stdID>/', delete),
-    path('edit/<str:stdID>/', edit), 
+    path('edit/<str:stdID>/', edit),
     path('edit/<str:stdID>/<str:mode>/', edit),
     # cookies
     path('set_cookie/<str:key>/<str:value>/', csviews.set_cookie),
@@ -56,15 +54,16 @@ urlpatterns = [
 	path('vote/', csviews.vote),	
 	path('set_session2/<str:key>/<str:value>/', csviews.set_session2),
 	path('delete_session/<str:key>/', csviews.delete_session),
+    
     # login
 	path('login/', csviews.login),	
 	path('logout/', csviews.logout),
 
     path('mypage/', csviews.mypage),
     path('adduser/', csviews.adduser),
-    path('register/', csviews.register),    
+    path('register/', csviews.register),
 
-    # news
+    #newsadm
     path('newsindex/', nviews.index),
     path('newsindex/<str:pageindex>/', nviews.index),
     path('newsdetail/<int:detailid>/', nviews.detail),
@@ -78,18 +77,18 @@ urlpatterns = [
     path('newsdelete/<int:newsid>/', nviews.newsdelete),
     path('newsdelete/<int:newsid>/<str:deletetype>/', nviews.newsdelete),
 
-    # post
+    #post
     path('showpost/', bviews.showpost),
-    path('showpost/<str:pageindex>/', bviews.showpost),
     path('addpost/', bviews.addpost),
-    path('captcha/', include('captcha.urls')),
 
-    # allauth
+    #allauth
     path('accounts/', include('allauth.urls')),
-
+    path('captcha/',include('captcha.urls')),
+    
     path('flower/', fviews.flowers),
     path('flower/create/', fviews.create, name='create'),
     path('flower/edit/<int:pk>/', fviews.edit, name='edit'),
     path('flower/delete/<int:pk>/', fviews.delete, name='delete'),
-    path('flower/<slug:slug>/', fviews.detail, name='detail'), 
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('flower/<slug:slug>/', fviews.detail, name='detail'),
+
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

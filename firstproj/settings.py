@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-e@s-v^nw7yhvk4f)d8d@#25)o1uiv$jn1qj@xv8si8w+0g24*v'
+SECRET_KEY = 'django-insecure--$3gu-_w9a&6=mj0h1+$#^l@#nrj3jltcza9x^8+s&e56-irb#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -32,30 +32,29 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'widget_tweaks',
+ 'django.contrib.admin',
+ 'django.contrib.auth',
+ 'django.contrib.contenttypes',
+ 'django.contrib.sessions',
+ 'django.contrib.messages',
+ 'django.contrib.staticfiles',
+ 'allauth',
+ 'allauth.account',
+ 'allauth.socialaccount',
+ 'widget_tweaks',
+ 'captcha',
+ 'myapp',
+ 'students',
+ 'CookieSessionApp',
+ 'flower',
+ 'newsadm',
+ 'boardapp',
 
-    'myapp',
-    'students',
-    'CookieSessionApp',
-    'flower',
-    'news',
-    'boardapp',
-    'captcha',
 ]
 
 CAPTCHA_NOISE_FUNCTIONS = (
     'captcha.helpers.noise_dots',
 )
-
 SITE_ID = 1
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 LOGIN_REDIRECT_URL = '/flower/'
@@ -75,8 +74,8 @@ ROOT_URLCONF = 'firstproj.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        # 'DIRS': [BASE_DIR / 'templates'],
-        'DIRS': [os.path.join(BASE_DIR,'templates'), os.path.join(BASE_DIR,'templates', 'allauth')],
+        #'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [BASE_DIR / 'templates'],'DIRS': [os.path.join(BASE_DIR,'templates'), os.path.join(BASE_DIR,'templates','allauth')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

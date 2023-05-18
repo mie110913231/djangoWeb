@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render,redirect
 
 # 匯入相關套件
 from django.http import HttpResponse
@@ -7,8 +7,6 @@ import datetime
 from django.contrib.auth import authenticate
 from django.contrib import auth
 from django.contrib.auth.models import User
-
-from CookieSessionApp.form import PostForm
 
 # Create your views here.
 # 新增設定cookie函式
@@ -137,8 +135,8 @@ def logout(request):
 """
 def mypage(request):
 	if request.user.is_authenticated:
-		name=request.user.username
-	return render(request, "mypage.html", locals())
+	   name=request.user.username
+	return render(request, "CookieSessionApp/mypage.html", locals())
 
 def login(request):
 	if request.method == 'POST':
@@ -154,7 +152,7 @@ def login(request):
 				mess = '帳號尚未啟用！'
 		else:
 			mess = '登入失敗！'
-	return render(request, "login.html", locals())
+	return render(request, "CookieSessionApp/login.html", locals())
 	
 def logout(request):
 	auth.logout(request)
@@ -162,6 +160,7 @@ def logout(request):
 
 def adduser(request):	
 	try:
+		# 抓取單一使用者帳號
 		user=User.objects.get(username="test")
 	except:
 		user=None
@@ -177,16 +176,14 @@ def adduser(request):
 		return redirect('/admin/')
 
 def register(request):
-	userform = PostForm()
-	if request.method == "POST":
-		userName = request.POST['userName']
-		userPassword = request.POST['userPassword']
-		userEmail = request.POST['userEmail']
-		userFirstName = request.POST['userFirstName']
-		userLastName = request.POST['userLastName']
-		user=User.objects.create_user(userName,userEmail,userPassword)
-		user.first_name=userFirstName # 姓名
-		user.last_name=userLastName  # 姓氏
-		user.save()
-		return redirect('/mypage/')
-	return render(request, "register.html", locals())
+	 if request.method == "register":      
+	 	user=User.objects.create_user( first_name, last_name, is_staff)
+	 	user.first_name = request.POST['first_name'] 
+	 	user.last_name = request.POST['last_name']
+	 	user.email_address =  request.POST['email_address']
+	 	#新增一筆記錄
+	 	unit = User.objects.create(first_name=user.first_name,  last_name=user.last_name, email_address=user.email_address)
+	 	unit.save()  #寫入資料庫
+	 	return redirect('/admin/')
+	 else:
+	 	return render(request, "CookieSessionApp/register.html", locals())
